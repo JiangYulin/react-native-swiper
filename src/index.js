@@ -254,10 +254,19 @@ export default class extends Component {
     initState.offset[initState.dir] = initState.dir === 'y'
       ? height * props.index
       : width * props.index
+    
+    
+    // fix render last page first when loop = true
+    if (props.loop) {
+      initState.offset[initState.dir] = initState.dir === 'y'
+        ? height * (props.index + 1)
+        : width * (props.index + 1)
+    }
 
 
     this.internals = {
       ...this.internals,
+      offset: initState.offset,
       isScrolling: false
     };
     return initState
